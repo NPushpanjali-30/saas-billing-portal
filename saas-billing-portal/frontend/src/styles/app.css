@@ -1,0 +1,301 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #050b18;
+  color: white;
+  font-family: Inter, sans-serif;
+}
+
+/* Layout */
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+
+.sidebar {
+  width: 240px;
+  background: #081121;
+  border-right: 1px solid #1e293b;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 45px;
+  color: white;
+}
+
+.menu-title {
+  color: #64748b;
+  font-size: 12px;
+  margin: 25px 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sidebar a {
+  display: block;
+  padding: 15px 16px;
+  color: #94a3b8;
+  text-decoration: none;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.sidebar a:hover {
+  background: #13203a;
+  color: white;
+  transform: translateX(4px);
+}
+
+.active-link {
+  background: #13203a;
+  color: white !important;
+}
+
+/* Main Content */
+
+.content {
+  flex: 1;
+  padding: 30px;
+}
+
+/* Dashboard Cards */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: #081121;
+  border: 1px solid #1e293b;
+  border-radius: 22px;
+  padding: 28px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #2563eb;
+}
+
+.card h3 {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card h1 {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.green {
+  color: #22c55e;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.orange {
+  color: #f59e0b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Chart + Tables */
+
+.chart-box,
+.table-box {
+  background: #081121;
+  border: 1px solid #1e293b;
+  border-radius: 22px;
+  padding: 28px;
+  margin-bottom: 30px;
+}
+
+.chart-header,
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.chart-header h2,
+.table-header h2 {
+  font-size: 24px;
+}
+
+/* Buttons */
+
+.chart-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.chart-buttons button,
+.view-btn,
+.btn {
+  background: #13203a;
+  border: none;
+  color: white;
+  padding: 24px 36px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.chart-buttons button:hover,
+.view-btn:hover,
+.btn:hover {
+  background: #2563eb;
+  transform: scale(1.04);
+}
+
+/* Tables */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  color: #64748b;
+  font-size: 13px;
+  text-align: left;
+  padding-bottom: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+td {
+  padding: 20px 0;
+  border-top: 1px solid #1e293b;
+  font-size: 15px;
+}
+
+/* Status Badges */
+
+.badge {
+  padding: 8px 15px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.paid {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.overdue {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+/* Login Page */
+
+.login-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    #050b18,
+    #0f172a
+  );
+}
+
+.login-box {
+  width: 400px;
+  background: #081121;
+  border: 1px solid #1e293b;
+  border-radius: 26px;
+  padding: 45px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+
+.login-box h1 {
+  margin-bottom: 35px;
+  text-align: center;
+  font-size: 32px;
+}
+
+/* Inputs */
+
+.input {
+  width: 100%;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  color: white;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 22px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input:focus {
+  border-color: #2563eb;
+}
+
+/* Full Width Button */
+
+.btn {
+  width: 100%;
+}
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #1e293b;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .content {
+    padding: 20px;
+  }
+}
