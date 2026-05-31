@@ -6,17 +6,16 @@ import {
 } from "react-router-dom";
 
 import Sidebar from "./components/Sidebar";
-
 import Dashboard from "./pages/Dashboard";
 import Billing from "./pages/Billing";
 import Settings from "./pages/Settings";
 import Login from "./pages/Login";
+import Customers from "./pages/Customers";
 
 function Layout({ children }) {
   return (
     <div className="app-layout">
       <Sidebar />
-
       <div className="content">
         {children}
       </div>
@@ -25,67 +24,42 @@ function Layout({ children }) {
 }
 
 function ProtectedRoute({ children }) {
-  const isLoggedIn =
-    localStorage.getItem("loggedIn");
-
-  return isLoggedIn ? (
-    children
-  ) : (
-    <Navigate to="/login" />
-  );
+  const isLoggedIn = localStorage.getItem("loggedIn");
+  return isLoggedIn ? children : <Navigate to="/login" />;
 }
 
 function App() {
   return (
     <BrowserRouter>
-
       <Routes>
+        <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Layout><Dashboard /></Layout>
+          </ProtectedRoute>
+        }/>
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <Dashboard />
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/billing" element={
+          <ProtectedRoute>
+            <Layout><Billing /></Layout>
+          </ProtectedRoute>
+        }/>
 
-        <Route
-          path="/billing"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <Billing />
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/settings" element={
+          <ProtectedRoute>
+            <Layout><Settings /></Layout>
+          </ProtectedRoute>
+        }/>
 
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <Settings />
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/customers" element={
+          <ProtectedRoute>
+            <Layout><Customers /></Layout>
+          </ProtectedRoute>
+        }/>
 
-        <Route
-          path="*"
-          element={<Navigate to="/login" />}
-        />
-
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
-
     </BrowserRouter>
   );
 }

@@ -9,30 +9,36 @@ function Login() {
   const [isLogin, setIsLogin] = useState(true);
 
   // Login states
-  const [loginEmail, setLoginEmail] =
-    useState("");
-
-  const [loginPassword, setLoginPassword] =
-    useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   // Register states
   const [name, setName] = useState("");
-
   const [email, setEmail] = useState("");
-
-  const [password, setPassword] =
-    useState("");
+  const [password, setPassword] = useState("");
 
   // LOGIN
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    console.log("=== LOGIN DEBUG ===");
+    console.log("Email typed:", loginEmail);
+    console.log("Password typed:", loginPassword);
+
     const { data, error } = await supabase
       .from("users")
       .select("*");
 
+    console.log("Data from Supabase:", data);
+    console.log("Supabase error:", error);
+
     if (error) {
-      alert("Database error");
+      alert("Database error: " + error.message);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      alert("No users found in database");
       return;
     }
 
@@ -42,20 +48,17 @@ function Login() {
         u.password === loginPassword
     );
 
+    console.log("Matched user:", user);
+
     if (!user) {
-      alert("Invalid credentials");
+      alert("Invalid credentials - check console for details");
       return;
     }
 
     localStorage.setItem("loggedIn", "true");
-
-    localStorage.setItem(
-      "user",
-      JSON.stringify(user)
-    );
+    localStorage.setItem("user", JSON.stringify(user));
 
     alert("✅ Login Successful");
-
     navigate("/dashboard");
   };
 
@@ -89,19 +92,15 @@ function Login() {
     setName("");
     setEmail("");
     setPassword("");
-
     setIsLogin(true);
   };
 
   return (
     <div className="login-page">
-
       <div className="login-box">
-
         <h1>BillingOS</h1>
 
         {/* Tabs */}
-
         <div
           style={{
             display: "flex",
@@ -109,7 +108,6 @@ function Login() {
             marginBottom: "30px"
           }}
         >
-
           <button
             onClick={() => setIsLogin(true)}
             style={{
@@ -118,9 +116,7 @@ function Login() {
               borderRadius: "12px",
               border: "none",
               cursor: "pointer",
-              background: isLogin
-                ? "#2563eb"
-                : "#13203a",
+              background: isLogin ? "#2563eb" : "#13203a",
               color: "white",
               fontWeight: "600"
             }}
@@ -136,32 +132,24 @@ function Login() {
               borderRadius: "12px",
               border: "none",
               cursor: "pointer",
-              background: !isLogin
-                ? "#2563eb"
-                : "#13203a",
+              background: !isLogin ? "#2563eb" : "#13203a",
               color: "white",
               fontWeight: "600"
             }}
           >
             Register
           </button>
-
         </div>
 
         {/* LOGIN FORM */}
-
         {isLogin ? (
-
           <form onSubmit={handleLogin}>
-
             <input
               className="input"
               type="email"
               placeholder="Email"
               value={loginEmail}
-              onChange={(e) =>
-                setLoginEmail(e.target.value)
-              }
+              onChange={(e) => setLoginEmail(e.target.value)}
             />
 
             <input
@@ -169,34 +157,22 @@ function Login() {
               type="password"
               placeholder="Password"
               value={loginPassword}
-              onChange={(e) =>
-                setLoginPassword(e.target.value)
-              }
+              onChange={(e) => setLoginPassword(e.target.value)}
             />
 
-            <button
-              className="btn"
-              type="submit"
-            >
+            <button className="btn" type="submit">
               Login
             </button>
-
           </form>
-
         ) : (
-
           /* REGISTER FORM */
-
           <form onSubmit={handleRegister}>
-
             <input
               className="input"
               type="text"
               placeholder="Full Name"
               value={name}
-              onChange={(e) =>
-                setName(e.target.value)
-              }
+              onChange={(e) => setName(e.target.value)}
             />
 
             <input
@@ -204,9 +180,7 @@ function Login() {
               type="email"
               placeholder="Email"
               value={email}
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <input
@@ -214,24 +188,15 @@ function Login() {
               type="password"
               placeholder="Password"
               value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
+              onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button
-              className="btn"
-              type="submit"
-            >
+            <button className="btn" type="submit">
               Create Account
             </button>
-
           </form>
-
         )}
-
       </div>
-
     </div>
   );
 }

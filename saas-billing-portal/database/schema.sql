@@ -1,45 +1,35 @@
-
+-- Users Table
 CREATE TABLE users (
   id BIGSERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  password TEXT NOT NULL,
-  role VARCHAR(50) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  name TEXT,
+  email TEXT,
+  password TEXT,
+  role TEXT DEFAULT 'user',
+  status TEXT DEFAULT 'Active'
 );
 
-CREATE TABLE plans (
-  id BIGSERIAL PRIMARY KEY,
-  name VARCHAR(100),
-  price DECIMAL(10,2),
-  features TEXT
-);
-
-CREATE TABLE subscriptions (
-  id BIGSERIAL PRIMARY KEY,
-  user_id BIGINT REFERENCES users(id),
-  plan_id BIGINT REFERENCES plans(id),
-  status VARCHAR(50),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE payments (
-  id BIGSERIAL PRIMARY KEY,
-  user_id BIGINT REFERENCES users(id),
-  amount DECIMAL(10,2),
-  payment_status VARCHAR(50),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
+-- Invoices Table
 CREATE TABLE invoices (
   id BIGSERIAL PRIMARY KEY,
-  user_id BIGINT REFERENCES users(id),
-  amount DECIMAL(10,2),
-  invoice_status VARCHAR(50),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  customer TEXT,
+  amount TEXT,
+  status TEXT,
+  created_at TIMESTAMP DEFAULT now(),
+  email TEXT,
+  plan TEXT,
+  due_date TEXT,
+  payment_method TEXT,
+  user_id BIGINT
 );
 
-INSERT INTO plans (name, price, features) VALUES
-('Free', 0, 'Basic Features'),
-('Pro', 29, 'Advanced Features'),
-('Enterprise', 99, 'All Features');
+-- Settings Table
+CREATE TABLE settings (
+  id BIGSERIAL PRIMARY KEY,
+  company_name TEXT,
+  stripe_key TEXT,
+  tax_rate TEXT,
+  currency TEXT,
+  invoice_prefix TEXT
+);
+
+
